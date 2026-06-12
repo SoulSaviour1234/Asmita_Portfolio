@@ -28,30 +28,30 @@ Build the complete frontend scaffolding for a premium, ultra-modern Developer Po
 ```
 
 ## Implemented (Jan 12, 2026)
-- **Hero**: gradient "Asmita" name with backlit pink glow, glowing CTA buttons (spring scale on hover), stats strip
-- **3D Crystal**: drei `MeshTransmissionMaterial` icosahedron with frosted glass + glowing pink core + floating petals + soft OrbitControls auto-rotation
+- **Hero**: gradient "Asmita" name with backlit pink glow, glowing CTA buttons (spring scale on hover), stats strip; "Download résumé" now points to `/resume.pdf` (placeholder shipped in `public/`)
+- **3D Sakura Cluster** *(replaces icosahedron)*: procedural 5-petal sakura blossom with a V-notched petal shape via `THREE.Shape` + `ExtrudeGeometry`, golden pistil + pollen specks, plus two smaller floating blossoms. Gentle Y-wobble + Z-tilt animation, mouse parallax, restricted OrbitControls.
 - **Bento Grid**: 9 stack items (C++, React, Python, Node.js, SQL, Tailwind, DSA, Git, Figma) with varied col/row spans, gradient icon plates, and mouse-driven 3D tilt
-- **Project Cards**: 4 realistic CSE projects, edge-to-edge images, dark-pink translucent overlay sliding up via spring physics on hover, with Live + Code CTAs
-- **Connect Section**: massive "Let's engineer the future." gradient headline + frosted-glass form (name, email, message) with rose-glow focus rings + EmailJS-ready submit handler + socials & direct email
+- **Project Cards**: 4 CSE projects with refreshed CSE-themed Unsplash imagery (AI art, algorithm formulas, e-commerce, IoT), edge-to-edge images, dark-pink translucent overlay sliding up via spring physics on hover, with Live + Code CTAs
+- **Connect Section**: massive "Let's engineer the future." gradient headline + frosted-glass form with rose-glow focus rings + **EmailJS wired to real keys** (Service `service_0jhfx4f`, Template `template_ldmb6sp`) — submissions go to `mishraasmita885@gmail.com`
+- **Social links**: GitHub (`mishraasmita885-gif`), LinkedIn (`asmita-mishra-0427b5368`), Email (`mishraasmita885@gmail.com`). Twitter removed.
 - **Floating Nav**: top-center pill, underline-reveal nav links, mobile hamburger menu (animated)
 - **Global Aesthetic**: aurora blobs, custom pink scrollbar, custom selection color, Bricolage Grotesque + Instrument Serif + Manrope fonts
 - **Responsive**: tested at 1920px and 412px viewports — stacks gracefully on mobile
 - **Compile-time fix**: custom craco patch that disables the visual-edits babel plugin specifically for `SakuraScene.jsx` so R3F primitives (lowercase JSX) don't receive `x-line-number` props
 
-## EmailJS Integration (Placeholder)
-The submit handler is fully wired with `emailjs.sendForm`. To activate, add to `/app/frontend/.env`:
+## EmailJS Integration (LIVE)
+Configured with real credentials in `/app/frontend/.env`:
 ```
-REACT_APP_EMAILJS_SERVICE_ID=
-REACT_APP_EMAILJS_TEMPLATE_ID=
-REACT_APP_EMAILJS_PUBLIC_KEY=
+REACT_APP_EMAILJS_SERVICE_ID=service_0jhfx4f
+REACT_APP_EMAILJS_TEMPLATE_ID=template_ldmb6sp
+REACT_APP_EMAILJS_PUBLIC_KEY=kPwk_WVqQqtPkiTZz
 ```
-Form fields are named `name`, `email`, `message` — match these in your EmailJS template.
+Form field names sent to EmailJS template: `name`, `email`, `message`. Make sure the EmailJS template uses these variable names.
 
 ## Backlog / Next Steps (P1)
-- Real-user content swap: replace placeholder project text, image URLs, social links, resume PDF
-- Replace `hi@asmita.dev` with real email and add a real resume PDF link to the "Download résumé" button
-- Add scroll-snap for sections (optional)
-- Add a small "blog" or "writing" section (optional)
+- Replace `/public/resume.pdf` placeholder with the real résumé PDF
+- Test the live EmailJS form end-to-end (submit a real message to confirm delivery)
+- Add Open Graph / favicon assets (currently using default)
 
 ## Future / Stretch (P2)
 - Smooth route transitions if multi-page added later

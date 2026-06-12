@@ -144,7 +144,8 @@ const Hero = () => {
                         </motion.a>
 
                         <motion.a
-                            href="#connect"
+                            href="/resume.pdf"
+                            download
                             data-testid="hero-cta-secondary"
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}

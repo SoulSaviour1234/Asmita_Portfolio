@@ -4,7 +4,6 @@ import emailjs from "@emailjs/browser";
 import {
     Github,
     Linkedin,
-    Twitter,
     Mail,
     ArrowUpRight,
     Send,
@@ -48,10 +47,9 @@ const ConnectFooter = () => {
     };
 
     const socials = [
-        { name: "GitHub", icon: Github, href: "#" },
-        { name: "LinkedIn", icon: Linkedin, href: "#" },
-        { name: "Twitter", icon: Twitter, href: "#" },
-        { name: "Email", icon: Mail, href: "mailto:hi@asmita.dev" },
+        { name: "GitHub", icon: Github, href: "https://github.com/mishraasmita885-gif" },
+        { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/asmita-mishra-0427b5368/" },
+        { name: "Email", icon: Mail, href: "mailto:mishraasmita885@gmail.com" },
     ];
 
     return (
@@ -220,10 +218,10 @@ const ConnectFooter = () => {
                             >
                                 Something went wrong. Please email me directly at{" "}
                                 <a
-                                    href="mailto:hi@asmita.dev"
+                                    href="mailto:mishraasmita885@gmail.com"
                                     className="underline"
                                 >
-                                    hi@asmita.dev
+                                    mishraasmita885@gmail.com
                                 </a>
                                 .
                             </p>
@@ -248,11 +246,11 @@ const ConnectFooter = () => {
                                 Direct line
                             </div>
                             <a
-                                href="mailto:hi@asmita.dev"
-                                className="mt-3 inline-flex items-center gap-2 font-display text-2xl md:text-3xl font-semibold text-sakura-ink hover:text-sakura-pink transition"
+                                href="mailto:mishraasmita885@gmail.com"
+                                className="mt-3 inline-flex items-center gap-2 font-display text-2xl md:text-3xl font-semibold text-sakura-ink hover:text-sakura-pink transition break-all"
                             >
-                                hi@asmita.dev
-                                <ArrowUpRight size={20} />
+                                mishraasmita885@gmail.com
+                                <ArrowUpRight size={20} className="shrink-0" />
                             </a>
                             <p className="mt-3 text-sm text-sakura-inkSoft/80 leading-relaxed">
                                 Usually replies within{" "}

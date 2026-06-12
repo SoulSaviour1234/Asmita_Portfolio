@@ -8,7 +8,7 @@ const PROJECTS = [
         description:
             "An AI study companion that summarises lecture transcripts, generates flashcards, and answers questions over PDFs using RAG.",
         stack: ["Python", "FastAPI", "OpenAI", "Pinecone"],
-        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     },
     {
         title: "Algo Atlas",
@@ -16,7 +16,7 @@ const PROJECTS = [
         description:
             "Interactive visualiser for 30+ algorithms — from Dijkstra to Red-Black trees — with step-through animations and complexity insights.",
         stack: ["React", "TypeScript", "D3", "Framer Motion"],
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+        image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
     },
     {
         title: "Petal Commerce",
@@ -24,7 +24,7 @@ const PROJECTS = [
         description:
             "A boutique e-commerce platform with realtime inventory, Stripe checkout, and a CMS-driven storefront for indie florists.",
         stack: ["Next.js", "Node", "MongoDB", "Stripe"],
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1400&q=80",
+        image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1400&q=80",
     },
     {
         title: "Sonar IoT",
@@ -32,7 +32,7 @@ const PROJECTS = [
         description:
             "An IoT dashboard for tracking 50+ sensor nodes in real-time over MQTT — with anomaly alerts and historical trend analytics.",
         stack: ["C++", "MQTT", "React", "InfluxDB"],
-        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
+        image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1400&q=80",
     },
 ];
 
