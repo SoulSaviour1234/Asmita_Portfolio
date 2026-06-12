@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   Luminous Sakura Glassmorphism — Global Theme
+   =========================================================== */
+
+:root {
+    --sakura-bg: #fff5f8;
+    --sakura-bg-alt: #fafafa;
+    --sakura-ink: #1a0f15;
+    --sakura-ink-soft: #5a3d4a;
+    --sakura-pink: #ff4785;
+    --sakura-pink-soft: #ff7eb3;
+    --sakura-peach: #ffb997;
+    --sakura-rose: #e8b4b8;
+    --sakura-glow: rgba(255, 71, 133, 0.35);
+    --glass-tint: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --radius-pill: 9999px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    background: var(--sakura-bg);
+    color: var(--sakura-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    background:
+        radial-gradient(
+            900px 600px at 10% -10%,
+            rgba(255, 126, 179, 0.28),
+            transparent 60%
+        ),
+        radial-gradient(
+            800px 600px at 110% 10%,
+            rgba(255, 185, 151, 0.22),
+            transparent 60%
+        ),
+        radial-gradient(
+            1200px 800px at 50% 110%,
+            rgba(255, 71, 133, 0.12),
+            transparent 60%
+        ),
+        var(--sakura-bg);
+    background-attachment: fixed;
+}
+
+::selection {
+    background: var(--sakura-pink);
+    color: #fff;
+}
+
+/* Soft custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        var(--sakura-pink),
+        var(--sakura-peach)
+    );
+    border-radius: 9999px;
+}
+
+/* ===========================================================
+   Typography
+   =========================================================== */
+
+.font-display {
+    font-family:
+        "Bricolage Grotesque",
+        "Manrope",
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+    font-variation-settings:
+        "opsz" 72,
+        "wght" 700;
+    letter-spacing: -0.035em;
+}
+
+.font-serif-accent {
+    font-family: "Instrument Serif", "Bricolage Grotesque", serif;
+    font-style: italic;
+    letter-spacing: -0.02em;
+}
+
+/* ===========================================================
+   Glassmorphism Helpers
+   =========================================================== */
+
+.glass {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.35) 100%
+    );
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 30px 60px -30px rgba(255, 71, 133, 0.25),
+        0 8px 24px -12px rgba(255, 71, 133, 0.18);
+}
+
+.glass-pink {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 222, 233, 0.7) 0%,
+        rgba(255, 244, 248, 0.45) 100%
+    );
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 1) inset,
+        0 40px 80px -40px rgba(255, 71, 133, 0.4);
+}
+
+.glass-dark-pink {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 71, 133, 0.92) 0%,
+        rgba(225, 50, 110, 0.88) 100%
+    );
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ===========================================================
+   Glow + Light Effects
+   =========================================================== */
+
+.glow-pink {
+    box-shadow:
+        0 0 0 1px rgba(255, 71, 133, 0.18),
+        0 20px 60px -20px rgba(255, 71, 133, 0.55),
+        0 8px 30px -10px rgba(255, 126, 179, 0.45);
+}
+
+.glow-text {
+    text-shadow:
+        0 0 24px rgba(255, 126, 179, 0.4),
+        0 0 60px rgba(255, 71, 133, 0.25);
+}
+
+.aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    opacity: 0.65;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes float-slow {
+    0%,
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-22px) translateX(8px);
+    }
+}
+
+@keyframes pulse-glow {
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.08);
+    }
+}
+
+.animate-float-slow {
+    animation: float-slow 9s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 6s ease-in-out infinite;
+}
+
+/* ===========================================================
+   Underline reveal nav link
+   =========================================================== */
+
+.nav-link {
+    position: relative;
+    color: var(--sakura-ink-soft);
+    transition:
+        color 0.35s ease,
+        transform 0.35s ease;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 4px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--sakura-pink),
+        var(--sakura-peach)
+    );
+    border-radius: 9999px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover {
+    color: var(--sakura-ink);
+}
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Glass input */
+.glass-input {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    color: var(--sakura-ink);
+}
+.glass-input::placeholder {
+    color: rgba(90, 61, 74, 0.55);
+}
+.glass-input:focus {
+    outline: none;
+    border-color: rgba(255, 71, 133, 0.55);
+    box-shadow:
+        0 0 0 4px rgba(255, 71, 133, 0.14),
+        0 12px 40px -12px rgba(255, 71, 133, 0.35);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Decorative grain */
+.grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+}
