@@ -37,7 +37,7 @@ export default function ContributionGraph() {
         const fetchContributions = async () => {
             try {
                 setIsLoading(true);
-                const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '';
+                const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '/_/backend';
                 const response = await fetch(`${baseUrl}/api/github`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

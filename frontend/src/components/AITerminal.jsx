@@ -52,7 +52,7 @@ export default function AITerminal() {
 
         // Fetch real AI response
         try {
-            const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '';
+            const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : '/_/backend';
             const res = await fetch(`${baseUrl}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
