@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force hide emergent badge injected by visual edits package */
+#emergent-badge, [id^="emergent-badge"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 /* ===========================================================
    Luminous Sakura Glassmorphism — Global Theme
    =========================================================== */
@@ -30,7 +38,6 @@ body,
 #root {
     margin: 0;
     padding: 0;
-    background: var(--sakura-bg);
     color: var(--sakura-ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -64,20 +71,14 @@ body {
     color: #fff;
 }
 
-/* Soft custom scrollbar */
+/* Hide scrollbar completely but retain scrolling functionality */
 ::-webkit-scrollbar {
-    width: 10px;
+    display: none;
+    width: 0;
 }
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        180deg,
-        var(--sakura-pink),
-        var(--sakura-peach)
-    );
-    border-radius: 9999px;
+* {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 /* ===========================================================
@@ -269,3 +270,86 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
 }
+
+/* ===========================================================
+   Timeline Mask Effects
+   =========================================================== */
+
+@media (min-width: 768px) {
+  .mask-card-right {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 2px), transparent calc(100% - 2px)), linear-gradient(to bottom, black calc(50% - 24px), transparent calc(50% - 24px), transparent calc(50% + 24px), black calc(50% + 24px));
+    mask-image: linear-gradient(to right, black calc(100% - 2px), transparent calc(100% - 2px)), linear-gradient(to bottom, black calc(50% - 24px), transparent calc(50% - 24px), transparent calc(50% + 24px), black calc(50% + 24px));
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+  }
+  .mask-card-left {
+    -webkit-mask-image: linear-gradient(to left, black calc(100% - 2px), transparent calc(100% - 2px)), linear-gradient(to bottom, black calc(50% - 24px), transparent calc(50% - 24px), transparent calc(50% + 24px), black calc(50% + 24px));
+    mask-image: linear-gradient(to left, black calc(100% - 2px), transparent calc(100% - 2px)), linear-gradient(to bottom, black calc(50% - 24px), transparent calc(50% - 24px), transparent calc(50% + 24px), black calc(50% + 24px));
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+  }
+}
+
+/* ===========================================================
+   Ripple Animations
+   =========================================================== */
+
+@keyframes ripple-shadow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 133, 0.5);
+  }
+  70%, 100% {
+    box-shadow: 0 0 0 16px rgba(255, 71, 133, 0);
+  }
+}
+
+.animate-ripple-shadow {
+  animation: ripple-shadow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes ripple-svg {
+  0% {
+    stroke-width: 2px;
+    stroke: rgba(255, 71, 133, 0.5);
+  }
+  70%, 100% {
+    stroke-width: 34px;
+    stroke: rgba(255, 71, 133, 0);
+  }
+}
+
+.animate-ripple-svg {
+  animation: ripple-svg 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Responsive mask overlay for coverflow carousel */
+.mask-carousel {
+    -webkit-mask-image: linear-gradient(to right, transparent, white 40px, white calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, transparent, white 40px, white calc(100% - 40px), transparent);
+}
+@media (min-width: 768px) {
+    .mask-carousel {
+        -webkit-mask-image: linear-gradient(to right, transparent, white 150px, white calc(100% - 150px), transparent);
+        mask-image: linear-gradient(to right, transparent, white 150px, white calc(100% - 150px), transparent);
+    }
+}
+@media (min-width: 1024px) {
+    .mask-carousel {
+        -webkit-mask-image: linear-gradient(to right, transparent, white 240px, white calc(100% - 240px), transparent);
+        mask-image: linear-gradient(to right, transparent, white 240px, white calc(100% - 240px), transparent);
+    }
+}
+
+@keyframes fluid-warp {
+    0% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(-10px, 15px) scale(1.08) rotate(8deg);
+    }
+    100% {
+        transform: translate(10px, -15px) scale(0.95) rotate(-8deg);
+    }
+}
+
+

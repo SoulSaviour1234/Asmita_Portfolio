@@ -1,6 +1,25 @@
+import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Download } from "lucide-react";
-import SakuraScene from "@/components/SakuraScene";
+import ContributionGraph from "./ContributionGraph";
+
+const SakuraScene = lazy(() => import("@/components/SakuraScene"));
+
+const SakuraLoader = () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-100 z-0">
+        <motion.div
+            initial={{ scale: 0.8, opacity: 0.5 }}
+            animate={{ scale: 1.1, opacity: 1 }}
+            transition={{
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 1.2,
+                ease: "easeInOut",
+            }}
+            className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/30 backdrop-blur-md border border-white/50 shadow-[0_0_40px_rgba(255,126,179,0.4)]"
+        />
+    </div>
+);
 
 const Hero = () => {
     const container = {
@@ -41,10 +60,10 @@ const Hero = () => {
                             className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium text-sakura-inkSoft"
                         >
                             <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full rounded-full bg-sakura-pink opacity-75 animate-ping" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-sakura-pink" />
+                                <span className="absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75 animate-ping" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500" />
                             </span>
-                            Available for collaborations · India
+                            Open for collaborations · Kolkata, IN
                         </span>
                     </motion.div>
 
@@ -87,17 +106,9 @@ const Hero = () => {
                     <motion.p
                         variants={item}
                         data-testid="hero-subheadline"
-                        className="mt-7 max-w-xl text-lg md:text-xl text-sakura-inkSoft leading-relaxed"
+                        className="mt-7 max-w-2xl text-base md:text-lg lg:text-xl text-slate-600 leading-relaxed"
                     >
-                        Computer Science Engineer crafting{" "}
-                        <span className="text-sakura-ink font-medium">
-                            intelligent architectures
-                        </span>{" "}
-                        and{" "}
-                        <span className="text-sakura-ink font-medium">
-                            beautiful web experiences
-                        </span>
-                        .
+                        Full-Stack Engineer building high-performance architectures with Next.js and integrating advanced AI models into elegant web experiences.
                     </motion.p>
 
                     {/* CTAs */}
@@ -105,10 +116,11 @@ const Hero = () => {
                         variants={item}
                         className="mt-10 flex flex-wrap items-center gap-4"
                     >
-                        <motion.a
-                            href="#projects"
+                        <motion.button
+                            type="button"
+                            onClick={() => document.getElementById('deployments')?.scrollIntoView({ behavior: 'smooth' })}
                             data-testid="hero-cta-primary"
-                            whileHover={{ scale: 1.04 }}
+                            whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.97 }}
                             transition={{
                                 type: "spring",
@@ -125,13 +137,13 @@ const Hero = () => {
                         >
                             <span>See my work</span>
                             <motion.span
-                                aria-hidden
+                                aria-hidden="true"
                                 initial={{ x: 0, y: 0 }}
                                 animate={{ x: 0, y: 0 }}
                                 whileHover={{ x: 4, y: -4 }}
                                 className="inline-flex"
                             >
-                                <ArrowUpRight size={18} />
+                                <ArrowUpRight size={18} aria-hidden="true" />
                             </motion.span>
                             <span
                                 aria-hidden
@@ -141,42 +153,42 @@ const Hero = () => {
                                         "radial-gradient(120px 60px at var(--x,50%) 0%, rgba(255,255,255,0.45), transparent 70%)",
                                 }}
                             />
-                        </motion.a>
+                        </motion.button>
 
-                        <motion.a
-                            href="/resume.pdf"
-                            download
+                        <motion.button
+                            type="button"
+                            onClick={(e) => { e.preventDefault(); alert('My résumé is currently being polished and updated. Please check back soon!'); }}
                             data-testid="hero-cta-secondary"
-                            whileHover={{ scale: 1.03 }}
+                            whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.97 }}
                             transition={{
                                 type: "spring",
                                 stiffness: 320,
                                 damping: 18,
                             }}
-                            className="inline-flex items-center gap-2 glass rounded-full px-6 py-4 font-semibold text-sm md:text-base text-sakura-ink"
+                            className="inline-flex items-center gap-2 bg-white/50 backdrop-blur border border-white/20 rounded-full px-6 py-4 font-semibold text-sm md:text-base text-slate-800"
                         >
-                            <Download size={17} />
+                            <Download size={17} aria-hidden="true" />
                             Download résumé
-                        </motion.a>
+                        </motion.button>
                     </motion.div>
 
                     {/* Stats strip */}
                     <motion.div
                         variants={item}
                         data-testid="hero-stats"
-                        className="mt-14 grid grid-cols-3 gap-6 max-w-lg"
+                        className="mt-10 ml-4 sm:ml-6 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-md"
                     >
                         {[
-                            { k: "20+", v: "Projects shipped" },
+                            { k: "5+", v: "Products shipped" },
                             { k: "8.9", v: "CGPA · CSE" },
                             { k: "3y", v: "Building since" },
                         ].map((s) => (
-                            <div key={s.v}>
-                                <div className="font-display text-3xl md:text-4xl font-bold text-sakura-ink tracking-tight">
+                            <div key={s.v} className="group cursor-default">
+                                <div className="font-display text-3xl md:text-4xl font-bold text-sakura-ink tracking-tight transition-colors duration-300 group-hover:text-pink-500">
                                     {s.k}
                                 </div>
-                                <div className="text-xs md:text-sm text-sakura-inkSoft/80 mt-1">
+                                <div className="text-xs md:text-sm text-sakura-inkSoft/80 mt-1 transition-all duration-300 group-hover:text-sakura-ink group-hover:underline decoration-pink-400 underline-offset-4">
                                     {s.v}
                                 </div>
                             </div>
@@ -210,18 +222,25 @@ const Hero = () => {
                     {/* Glass frame */}
                     <div className="relative h-full w-full rounded-[2.5rem] glass-pink overflow-hidden">
                         {/* WebGL Canvas Injection Point */}
-                        <SakuraScene />
+                        <Suspense fallback={<SakuraLoader />}>
+                            <SakuraScene />
+                        </Suspense>
 
                         {/* Decorative corner labels */}
-                        <div className="absolute top-5 left-5 flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-sakura-inkSoft/70">
-                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-sakura-pink" />
-                            sakura.crystal
+                        <div className="absolute top-5 left-5 flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-sakura-ink font-semibold bg-white/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/40 shadow-sm">
+                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-sakura-pink shadow-sm" />
+                            asmita.portfolio
                         </div>
-                        <div className="absolute bottom-5 right-5 text-[10px] uppercase tracking-[0.22em] text-sakura-inkSoft/70">
+                        <div className="absolute bottom-5 right-5 text-[10px] uppercase tracking-[0.22em] text-sakura-ink font-semibold bg-white/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/40 shadow-sm">
                             v · 1.0
                         </div>
                     </div>
                 </motion.div>
+            </div>
+
+            {/* Live Contribution Heatmap Grid */}
+            <div className="mx-auto max-w-7xl relative z-10">
+                <ContributionGraph />
             </div>
         </section>
     );

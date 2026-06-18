@@ -3,40 +3,47 @@ import { ArrowUpRight, Github, Globe } from "lucide-react";
 
 const PROJECTS = [
     {
-        title: "Neural Notes",
-        category: "AI · NLP",
+        title: "Dr. Brinjal",
+        category: "AI · Multimodal",
         description:
-            "An AI study companion that summarises lecture transcripts, generates flashcards, and answers questions over PDFs using RAG.",
-        stack: ["Python", "FastAPI", "OpenAI", "Pinecone"],
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+            "An AI-driven system utilizing a CNN ensemble and multimodal analysis for the robust classification of eggplant leaf diseases.",
+        stack: ["Python", "PyTorch", "OpenCV", "FastAPI"],
+        image: "/dr-brinjal-card.png",
+        status: "active",
+        liveLink: "https://dr-brinjal.vercel.app/",
     },
     {
-        title: "Algo Atlas",
-        category: "Data Structures",
+        title: "Project in Stealth",
+        category: "In Development",
         description:
-            "Interactive visualiser for 30+ algorithms — from Dijkstra to Red-Black trees — with step-through animations and complexity insights.",
-        stack: ["React", "TypeScript", "D3", "Framer Motion"],
+            "Architecture currently under construction. Deployment pending.",
+        stack: [],
         image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
+        status: "placeholder",
     },
     {
-        title: "Petal Commerce",
-        category: "Full-stack Web",
+        title: "Project in Stealth",
+        category: "In Development",
         description:
-            "A boutique e-commerce platform with realtime inventory, Stripe checkout, and a CMS-driven storefront for indie florists.",
-        stack: ["Next.js", "Node", "MongoDB", "Stripe"],
+            "Architecture currently under construction. Deployment pending.",
+        stack: [],
         image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1400&q=80",
+        status: "placeholder",
     },
     {
-        title: "Sonar IoT",
-        category: "Embedded · Cloud",
+        title: "Project in Stealth",
+        category: "In Development",
         description:
-            "An IoT dashboard for tracking 50+ sensor nodes in real-time over MQTT — with anomaly alerts and historical trend analytics.",
-        stack: ["C++", "MQTT", "React", "InfluxDB"],
+            "Architecture currently under construction. Deployment pending.",
+        stack: [],
         image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1400&q=80",
+        status: "placeholder",
     },
 ];
 
 const ProjectCard = ({ p, idx }) => {
+    const isPlaceholder = p.status === "placeholder";
+
     return (
         <motion.article
             initial={{ opacity: 0, y: 40 }}
@@ -48,20 +55,18 @@ const ProjectCard = ({ p, idx }) => {
                 damping: 18,
                 delay: idx * 0.08,
             }}
-            whileHover="hover"
             data-testid={`project-card-${idx}`}
-            className="group relative overflow-hidden rounded-[2rem] glass cursor-pointer"
-            style={{ aspectRatio: "4 / 3" }}
+            className={`group relative overflow-hidden rounded-[2rem] glass aspect-[4/5] md:aspect-[4/3] ${isPlaceholder ? '' : 'cursor-pointer'}`}
         >
             {/* Edge-to-edge image */}
-            <motion.img
+            <img
                 src={p.image}
                 alt={p.title}
-                variants={{
-                    hover: { scale: 1.08 },
-                }}
-                transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                className="absolute inset-0 h-full w-full object-cover"
+                className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${
+                    isPlaceholder 
+                    ? "filter blur-xl scale-125" 
+                    : "group-hover:scale-105"
+                }`}
             />
 
             {/* Soft light gradient on top by default */}
@@ -79,19 +84,26 @@ const ProjectCard = ({ p, idx }) => {
                 <span className="glass rounded-full px-3 py-1.5 text-[11px] font-medium text-sakura-ink">
                     {p.category}
                 </span>
-                <span className="glass rounded-full h-9 w-9 flex items-center justify-center text-sakura-ink">
-                    <ArrowUpRight size={16} />
-                </span>
+                {!isPlaceholder && (
+                    <a 
+                        href={p.liveLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="glass hover:bg-white/40 transition rounded-full h-9 w-9 flex items-center justify-center text-sakura-ink" 
+                        aria-label={`Visit live deployment of ${p.title}`}
+                    >
+                        <ArrowUpRight size={16} />
+                    </a>
+                )}
             </div>
 
-            {/* Dark-pink translucent overlay (slides up on hover) */}
-            <motion.div
-                variants={{
-                    hover: { y: 0, opacity: 1 },
-                }}
-                initial={{ y: "55%", opacity: 0.96 }}
-                transition={{ type: "spring", stiffness: 110, damping: 20 }}
-                className="absolute inset-x-0 bottom-0 p-6 md:p-8 glass-dark-pink rounded-t-[2rem]"
+            {/* Dark-pink translucent overlay (slides up on hover for desktop, always visible on mobile) */}
+            <div
+                className={`absolute inset-x-0 bottom-0 p-6 md:p-8 rounded-t-[2rem] transition-all duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${
+                    isPlaceholder
+                    ? "bg-pink-600/70 backdrop-blur-md translate-y-0 opacity-100" 
+                    : "glass-dark-pink translate-y-0 md:translate-y-[55%] md:opacity-95 md:group-hover:translate-y-0 md:group-hover:opacity-100"
+                }`}
                 data-testid={`project-overlay-${idx}`}
             >
                 <h3 className="font-display text-2xl md:text-3xl font-semibold text-white tracking-tight">
@@ -101,32 +113,40 @@ const ProjectCard = ({ p, idx }) => {
                     {p.description}
                 </p>
 
-                <div className="mt-5 flex flex-wrap items-center gap-2">
-                    {p.stack.map((s) => (
-                        <span
-                            key={s}
-                            className="rounded-full bg-white/15 border border-white/25 px-3 py-1 text-[11px] font-medium text-white/95 backdrop-blur"
-                        >
-                            {s}
-                        </span>
-                    ))}
-                </div>
+                {!isPlaceholder && (
+                    <>
+                        <div className="mt-5 flex flex-wrap items-center gap-2">
+                            {p.stack.map((s) => (
+                                <span
+                                    key={s}
+                                    className="rounded-full bg-white/15 border border-white/25 px-3 py-1 text-[11px] font-medium text-white/95 backdrop-blur"
+                                >
+                                    {s}
+                                </span>
+                            ))}
+                        </div>
 
-                <div className="mt-6 flex items-center gap-3">
-                    <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-white text-sakura-pink font-semibold text-sm px-4 py-2 hover:scale-[1.03] transition"
-                    >
-                        <Globe size={14} /> Live
-                    </button>
-                    <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-white/10 text-white font-semibold text-sm px-4 py-2 border border-white/25 hover:bg-white/20 transition"
-                    >
-                        <Github size={14} /> Code
-                    </button>
-                </div>
-            </motion.div>
+                        <div className="mt-6 flex items-center gap-3">
+                            {p.liveLink && (
+                                <a
+                                    href={p.liveLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 rounded-full bg-white text-pink-950 font-semibold text-sm px-4 py-2 hover:scale-[1.03] transition"
+                                >
+                                    <Globe size={14} aria-hidden="true" /> Live
+                                </a>
+                            )}
+                            <button
+                                type="button"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-white/10 text-white font-semibold text-sm px-4 py-2 border border-white/25 hover:bg-white/20 transition"
+                            >
+                                <Github size={14} aria-hidden="true" /> Code
+                            </button>
+                        </div>
+                    </>
+                )}
+            </div>
         </motion.article>
     );
 };
@@ -134,7 +154,7 @@ const ProjectCard = ({ p, idx }) => {
 const FeaturedProjects = () => {
     return (
         <section
-            id="projects"
+            id="deployments"
             data-testid="projects-section"
             className="relative px-6 md:px-12 py-24 md:py-32"
         >
@@ -169,10 +189,9 @@ const FeaturedProjects = () => {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="max-w-sm text-sakura-inkSoft text-base leading-relaxed"
+                        className="max-w-sm text-sakura-inkSoft text-base md:text-lg leading-relaxed md:text-right"
                     >
-                        Four projects spanning AI, systems, full-stack, and IoT — each
-                        shipped end-to-end. Hover for the story.
+                        Highlighting my latest research in AI-driven agricultural analysis, alongside upcoming architectures currently in development.
                     </motion.p>
                 </div>
 

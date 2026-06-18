@@ -1,96 +1,41 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
-    Code2,
     Atom,
-    Braces,
-    GitBranch,
     Database,
     Wind,
-    Figma,
-    Binary,
-    Hexagon,
     Layers,
+    Zap,
+    Sparkles,
 } from "lucide-react";
 
 const STACK = [
-    {
-        name: "C++",
-        tag: "Systems · DSA",
-        icon: Code2,
-        span: "md:col-span-2 md:row-span-2",
-        accent: "linear-gradient(135deg,#FF4785,#FF7EB3)",
-    },
-    {
-        name: "React",
-        tag: "UI engineering",
-        icon: Atom,
-        span: "md:col-span-2",
-        accent: "linear-gradient(135deg,#FF7EB3,#FFB997)",
-    },
-    {
-        name: "Python",
-        tag: "ML · Scripting",
-        icon: Braces,
-        span: "md:col-span-1",
-        accent: "linear-gradient(135deg,#FF4785,#E8B4B8)",
-    },
-    {
-        name: "Node.js",
-        tag: "Backend · APIs",
-        icon: Hexagon,
-        span: "md:col-span-1",
-        accent: "linear-gradient(135deg,#FFB997,#FF7EB3)",
-    },
-    {
-        name: "SQL",
-        tag: "Data & queries",
-        icon: Database,
-        span: "md:col-span-1",
-        accent: "linear-gradient(135deg,#E8B4B8,#FF4785)",
-    },
-    {
-        name: "Tailwind",
-        tag: "Utility-first CSS",
-        icon: Wind,
-        span: "md:col-span-2",
-        accent: "linear-gradient(135deg,#FF7EB3,#FF4785)",
-    },
-    {
-        name: "Data Structures",
-        tag: "Algorithms · 800+ solved",
-        icon: Binary,
-        span: "md:col-span-2",
-        accent: "linear-gradient(135deg,#FF4785,#FFB997)",
-    },
-    {
-        name: "Git",
-        tag: "Version control",
-        icon: GitBranch,
-        span: "md:col-span-1",
-        accent: "linear-gradient(135deg,#FFB997,#E8B4B8)",
-    },
-    {
-        name: "Figma",
-        tag: "Design hand-off",
-        icon: Figma,
-        span: "md:col-span-1",
-        accent: "linear-gradient(135deg,#FF7EB3,#E8B4B8)",
-    },
+    // Top-left massive block (2x2)
+    { name: 'Next.js', subtitle: 'Full-Stack Architecture', proficiency: 95, icon: Layers, accent: "linear-gradient(135deg,#FF4785,#FF7EB3)", colSpan: 2, rowSpan: 2 },
+    // Top-right stacked wides (2x1)
+    { name: 'Gemini 2.5', subtitle: 'AI Integration', proficiency: 92, icon: Sparkles, accent: "linear-gradient(135deg,#E8B4B8,#FF4785)", colSpan: 2, rowSpan: 1 },
+    { name: 'React 19', subtitle: 'UI Engineering', proficiency: 90, icon: Atom, accent: "linear-gradient(135deg,#FF7EB3,#FFB997)", colSpan: 2, rowSpan: 1 },
+    // Bottom half: stacked wides on the left, side-by-side talls on the right
+    { name: 'Tailwind v4', subtitle: 'Styling', proficiency: 88, icon: Wind, accent: "linear-gradient(135deg,#FF4785,#FFB997)", colSpan: 2, rowSpan: 1 },
+    { name: 'FastAPI', subtitle: 'Async Backends', proficiency: 88, icon: Zap, accent: "linear-gradient(135deg,#FF4785,#E8B4B8)", colSpan: 1, rowSpan: 2 },
+    { name: 'Supabase', subtitle: 'Database & Auth', proficiency: 85, icon: Database, accent: "linear-gradient(135deg,#FFB997,#FF7EB3)", colSpan: 1, rowSpan: 2 },
+    { name: 'PostgreSQL', subtitle: 'Relational DB', proficiency: 80, icon: Database, accent: "linear-gradient(135deg,#FF7EB3,#FF4785)", colSpan: 2, rowSpan: 1 },
 ];
 
 /* === Single Bento card with 3D tilt on mouse move === */
-const BentoCard = ({ item, idx }) => {
+const BentoCard = ({ item, idx, isMobile }) => {
     const cardRef = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
-    const rotateX = useSpring(useTransform(y, [-50, 50], [10, -10]), {
-        stiffness: 150,
-        damping: 18,
+    // Add a Z-axis spring to simulate pressing down into water
+    const z = useSpring(0, { stiffness: 300, damping: 20 });
+    const rotateX = useSpring(useTransform(y, [-50, 50], [15, -15]), {
+        stiffness: 300,
+        damping: 20,
     });
-    const rotateY = useSpring(useTransform(x, [-50, 50], [-10, 10]), {
-        stiffness: 150,
-        damping: 18,
+    const rotateY = useSpring(useTransform(x, [-50, 50], [-15, 15]), {
+        stiffness: 300,
+        damping: 20,
     });
 
     const onMove = (e) => {
@@ -99,13 +44,21 @@ const BentoCard = ({ item, idx }) => {
         const py = e.clientY - rect.top - rect.height / 2;
         x.set((px / rect.width) * 100);
         y.set((py / rect.height) * 100);
+        z.set(-15); // Press the card down into the "water" when hovered
     };
     const onLeave = () => {
         x.set(0);
         y.set(0);
+        z.set(0); // Float back up smoothly
     };
 
     const Icon = item.icon;
+    
+    // Apply exact inline spans. Override dynamically to empty object on mobile.
+    const dynamicStyle = isMobile ? {} : {
+        gridColumn: `span ${item.colSpan} / span ${item.colSpan}`,
+        gridRow: `span ${item.rowSpan} / span ${item.rowSpan}`
+    };
 
     return (
         <motion.div
@@ -122,57 +75,66 @@ const BentoCard = ({ item, idx }) => {
                 delay: idx * 0.05,
             }}
             style={{
+                ...dynamicStyle,
                 rotateX,
                 rotateY,
-                transformPerspective: 1000,
+                z,
+                transformPerspective: 800, // Reduced perspective to exaggerate the 3D tilt
                 transformStyle: "preserve-3d",
             }}
             data-testid={`bento-card-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-            className={`group relative ${item.span} min-h-[160px] glass-pink rounded-[1.8rem] p-6 md:p-7 overflow-hidden cursor-default`}
+            // Removed transition-all to prevent CSS from fighting Framer Motion's 60fps 3D transforms
+            className="group relative flex flex-col justify-between h-full min-h-[160px] bg-white/40 backdrop-blur-md border border-pink-300/50 rounded-[1.8rem] p-5 md:p-6 overflow-hidden cursor-default transition-[border-color,box-shadow] duration-300 hover:border-pink-400 hover:shadow-[0_0_30px_rgba(255,113,161,0.3)]"
         >
+            {/* Proficiency Number Watermark */}
+            <div className="absolute bottom-2 right-4 text-6xl font-display font-black tracking-tighter text-slate-900/[0.08] select-none pointer-events-none z-0">
+                {item.proficiency}%
+            </div>
+
             {/* Decorative gradient halo */}
             <div
                 aria-hidden
-                className="absolute -top-16 -right-16 h-56 w-56 rounded-full opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-90"
+                className="absolute -top-16 -right-16 h-56 w-56 rounded-full opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-90 z-0"
                 style={{ background: item.accent }}
             />
 
-            {/* Icon plate */}
+            {/* Icon */}
             <motion.div
-                style={{ transform: "translateZ(40px)" }}
-                className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+                style={{ 
+                    transform: "translateZ(40px)",
+                    animationDelay: `${idx * 0.35}s` 
+                }}
+                className="relative z-10 text-pink-500 mb-4 drop-shadow-[0_0_12px_rgba(255,71,133,0.9)] drop-shadow-[0_0_35px_rgba(255,71,133,0.6)] animate-[pulse_2s_ease-in-out_infinite]"
             >
-                <div
-                    className="absolute inset-0 rounded-2xl"
-                    style={{
-                        background: item.accent,
-                        boxShadow:
-                            "0 12px 40px -10px rgba(255,71,133,0.55), inset 0 1px 0 rgba(255,255,255,0.5)",
-                    }}
-                />
-                <Icon size={24} className="relative" strokeWidth={2.2} />
+                <Icon size={36} className="relative" strokeWidth={2.5} />
             </motion.div>
 
             {/* Text */}
             <div
                 style={{ transform: "translateZ(25px)" }}
-                className="relative mt-5"
+                className="relative z-10 flex flex-col gap-1"
             >
-                <div className="font-display text-2xl md:text-3xl font-semibold text-sakura-ink tracking-tight">
+                <div className="text-lg font-bold text-slate-900 tracking-tight truncate">
                     {item.name}
                 </div>
-                <div className="text-sm text-sakura-inkSoft/85 mt-1">
-                    {item.tag}
+                <div className="text-sm font-medium text-pink-500 line-clamp-2">
+                    {item.subtitle}
                 </div>
             </div>
-
-            {/* Hairline reveal */}
-            <div className="absolute inset-x-6 bottom-5 h-px bg-gradient-to-r from-transparent via-sakura-pink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </motion.div>
     );
 };
 
 const TechArsenal = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check(); // run immediately
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
+
     return (
         <section
             id="arsenal"
@@ -211,20 +173,20 @@ const TechArsenal = () => {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="max-w-sm text-sakura-inkSoft text-base leading-relaxed"
+                        className="max-w-sm text-sakura-inkSoft text-base md:text-lg leading-relaxed md:text-right"
                     >
-                        A curated stack — from low-level systems to pixel-perfect
-                        interfaces. Hover any card for a closer look.
+                        A curated stack — from high-performance web architectures to advanced AI integrations.
                     </motion.p>
                 </div>
 
                 {/* Bento Grid */}
                 <div
                     data-testid="bento-grid"
-                    className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(160px,_1fr)] gap-4 md:gap-5"
+                    // Perfectly packed 4-column grid. Auto rows set to roughly equal column width for a square aesthetic.
+                    className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] grid-flow-dense gap-4 md:gap-5"
                 >
                     {STACK.map((item, i) => (
-                        <BentoCard key={item.name} item={item} idx={i} />
+                        <BentoCard key={item.name} item={item} idx={i} isMobile={isMobile} />
                     ))}
                 </div>
             </div>

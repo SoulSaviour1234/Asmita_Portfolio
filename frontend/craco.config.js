@@ -91,7 +91,7 @@ if (isDevServer) {
     // R3F treats unknown props as Three.js object paths (e.g., `x-line-number` -> `x.line-number`),
     // which collides with visual-edits' metadata attributes. Files matching the pattern below
     // are excluded from the plugin.
-    const SKIP_PATTERNS = [/SakuraScene\.(jsx|tsx|js|ts)$/];
+    const SKIP_PATTERNS = [/(SakuraScene|GlobalPetalsScene)\.(jsx|tsx|js|ts)$/];
     if (Array.isArray(webpackConfig.babel?.plugins)) {
       let patched = false;
       webpackConfig.babel.plugins = webpackConfig.babel.plugins.map((p) => {

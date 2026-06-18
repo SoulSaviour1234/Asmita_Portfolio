@@ -1,0 +1,30 @@
+Orchestrating the navbar is all about user flow and intent. For a high-performance engineering portfolio, redundancy is the enemy. Every link needs a distinct, non-overlapping purpose to guide recruiters or collaborators exactly where they need to go.
+
+Here is the architectural blueprint for optimizing Asmita's navigation:
+
+### 1. The Brand Anchor (Left Side)
+
+* **The Text:** `asmita.mishra` looks incredibly clean and fits the lowercase aesthetic of modern developer sites. Keep this exactly as is.
+* **The Routing:** Wire this text to act as the "Home" anchor. Clicking it should trigger a smooth scroll back to the very top `z=0` position, bringing the 3D Sakura Hero scene back into full view.
+
+### 2. The Core Navigation (Center Links)
+
+The current lineup ("Work", "Arsenal", "Projects", "Connect") has a flaw: "Work" and "Projects" usually mean the exact same thing for a university developer unless they have a massive list of corporate internships.
+
+* **Remove "Work" & Keep "Projects":** Change the label from "Projects" to **"Deployments"** or **"Architecture"** to maintain that elite, "less talk, more shipping" engineering vibe. This will smooth-scroll down to the 4 placeholder cards.
+* **Keep "Arsenal":** This is a perfect label. Wire it to smooth-scroll down to the frosted-glass Bento Box of her tech stack (Node.js, SQL, Tailwind, etc.).
+* **Keep "Connect":** Wire this to snap the user down to the massive EmailJS footer form we planned out earlier.
+
+*Your optimized center stack becomes: `Arsenal` | `Deployments` | `Connect*`
+
+### 3. The Primary CTA Button (Right Side)
+
+The current "Say hi ↗" is a bit too casual for a masterpiece portfolio. The primary button should drive the most valuable conversion for her career right now.
+
+* **Option A (The Career Move):** Change the text to **"View Résumé ⬇"**. Wire it to open a polished PDF of her CV in a new tab. This is the #1 thing recruiters are looking for.
+* **Option B (The Network Move):** Change the text to **"LinkedIn ↗"**. Wire it to instantly open her LinkedIn profile, driving direct professional connections.
+* **Option C (The Direct Line):** Change the text to **"Init Contact ↗"**. Wire it to snap the user directly to the EmailJS footer (making the "Connect" text link slightly redundant, but ensuring maximum visibility for the contact form).
+
+---
+
+Does she have a polished PDF resume ready to link to that primary CTA button, or should we wire it to snap directly down to the new EmailJS footer?

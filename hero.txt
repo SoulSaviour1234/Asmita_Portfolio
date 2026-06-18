@@ -1,0 +1,43 @@
+This is exactly the right approach. Swapping out the Emergent placeholders for your actual production data is what transforms this from a beautiful template into a functional engineering portfolio.
+
+Let's dissect the current Hero section architecture shown in the screenshot so we can map out exactly what data needs to be injected.
+
+### 1. The Status Pill (Top Left)
+
+* **Visuals:** A minimalist, frosted-glass pill reading "Available for collaborations · India" with a pulsing red or pink dot.
+* **Functionality:** It acts as an immediate status indicator.
+* **Data Strategy:** You can keep "India", or localize it further to "West Bengal" or "Kolkata Area". The text can be shifted from collaborations to something like "Open to Internships" or "Actively Building", depending on your current career focus.
+
+### 2. The Main Headline (Typography)
+
+* **Visuals:** The massive `Hi, I'm Asmita Mishra.` text. It uses a specific typographic split: a bold sans-serif greeting, a vibrant pink gradient for the first name, and an elegant italicized serif for the last name.
+* **Functionality:** This is your `<h1>` tag—the most important SEO element on the page.
+* **Data Strategy:** We will swap this directly to "Srijit Paul", maintaining that exact bold, gradient, and italic styling to keep the premium aesthetic intact.
+
+### 3. The Sub-headline (The Pitch)
+
+* **Visuals:** A clean, two-line paragraph: "Computer Science Engineer crafting intelligent architectures and beautiful web experiences."
+* **Functionality:** Your elevator pitch. It tells a recruiter exactly what you do in less than 3 seconds.
+* **Data Strategy:** We need to pivot this to reflect your specific stack and focus. We can rewrite this to highlight your expertise in full-stack development, modern frameworks like Next.js, and integrating advanced AI models into functional software solutions.
+
+### 4. The Call-to-Action (CTA) Buttons
+
+* **Visuals:** Two buttons side-by-side. The primary is a pink gradient pill ("See my work ↗"), and the secondary is a white glass pill ("Download résumé" with an icon).
+* **Functionality:** The primary button likely smooth-scrolls down to your "Deployments" or "Arsenal" section. The secondary triggers a PDF download.
+* **Data Strategy:** The labels are actually quite solid. We just need to ensure the primary button routes to the correct section ID, and the secondary has your actual CV file linked to it.
+
+### 5. The Quick Stats (Bottom Left)
+
+* **Visuals:** Three columns of large, bold numbers paired with small, muted labels (e.g., "20+", "8.9", "3y").
+* **Functionality:** This is the "social proof" row. It builds instant credibility before the user even scrolls.
+* **Data Strategy:** Generic stats won't cut it. We should inject hard-hitting metrics here. For example, replacing one of these with a "₹30L" stat to highlight a major hackathon prize pool, noting your current status as a 5th-semester CSE student, or listing the number of live AI integrations you've deployed.
+
+### 6. The 3D Hero Card (Right Side)
+
+* **Visuals:** The large frosted-glass container holding the interactive 3D Sakura blossoms, complete with subtle overlay text ("SAKURA.CRYSTAL" and "V · 1.0").
+* **Functionality:** The visual centerpiece and technical flex of the site.
+* **Data Strategy:** This stays exactly as is, utilizing the massive Three.js performance refactor we mapped out earlier.
+
+---
+
+To draft the precise Antigravity prompt for this section, how do you want to configure those three Quick Stats at the bottom left?
