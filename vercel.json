@@ -1,10 +1,13 @@
 {
   "experimentalServices": {
     "frontend": {
+      "framework": "create-react-app",
+      "root": "frontend",
       "routePrefix": "/"
     },
     "backend": {
-      "root": "backend",
+      "builder": "@vercel/python",
+      "entrypoint": "backend/server.py",
       "routePrefix": "/_/backend"
     }
   }
