@@ -18,6 +18,14 @@ const TESTIMONIALS_DATA = [
         role: "Teammate",
         avatar: "/saptarshi.jpeg",
         linkedin: "https://www.linkedin.com/in/saptarshi-basak/"
+    },
+    {
+        id: 'voice-3',
+        quote: "She is a sharp, precise teammate I’ve worked with for the past year — she tackles problems smartly and delivers clean, reliable results every time.",
+        name: "Anisha Dan",
+        role: "Teammate",
+        avatar: "/anisha.jpeg",
+        linkedin: "https://www.linkedin.com/in/anisha-dan-293745383?utm_source=share_via&utm_content=profile&utm_medium=member_android"
     }
 ];
 
