@@ -80,7 +80,7 @@ const HeroImageCard = ({ mouse }) => {
     const uniforms = useMemo(() => ({
         uTexture: { value: texture },
         uTime: { value: 0 },
-        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+        uMouse: { value: new THREE.Vector2(10.0, 10.0) },
         // Add a 20% bleed margin to the plane size so rotation doesn't reveal edges
         uPlaneSize: { value: new THREE.Vector2(viewport.width * 1.2, viewport.height * 1.2) }
     }), [texture, viewport.width, viewport.height]);
@@ -136,7 +136,8 @@ const Cluster = ({ mouse }) => {
    Mouse-tracker
    ============================================================ */
 const useMouseTracker = () => {
-    const ref = useRef({ x: 0, y: 0 });
+    // Initialize far off-screen so the ripple doesn't start in the center (distorting the face)
+    const ref = useRef({ x: 10, y: 10 });
     const onMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
         ref.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
