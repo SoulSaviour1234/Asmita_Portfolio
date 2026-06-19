@@ -163,18 +163,23 @@ export default function ContributionGraph() {
             <div className="w-full overflow-x-auto scrollbar-none pr-1">
                 <div className="min-w-[700px] flex flex-col pt-4 pb-2">
                     {/* Months horizontal strip */}
-                    <div className="flex justify-between w-full mb-2 px-1">
+                    <div 
+                        className="grid grid-flow-col gap-[4px] sm:gap-[6px] mb-2"
+                        style={{ gridTemplateRows: '1fr' }}
+                    >
                         {isLoading ? (
-                            ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"].map((m, idx) => (
-                                <span key={idx} className="text-[10px] font-bold text-sakura-inkSoft/30 select-none animate-pulse">
-                                    {m}
-                                </span>
+                            Array.from({ length: 53 }).map((_, idx) => (
+                                <div key={idx} className="w-[12px] sm:w-[13px]"></div>
                             ))
                         ) : (
-                            monthsLabels.filter(Boolean).map((m, idx) => (
-                                <span key={idx} className="text-[10px] font-bold text-sakura-inkSoft/50 select-none">
-                                    {m}
-                                </span>
+                            monthsLabels.map((m, idx) => (
+                                <div key={idx} className="w-[12px] sm:w-[13px] relative">
+                                    {m && (
+                                        <span className="absolute left-0 text-[10px] font-bold text-sakura-inkSoft/50 select-none overflow-visible whitespace-nowrap">
+                                            {m}
+                                        </span>
+                                    )}
+                                </div>
                             ))
                         )}
                     </div>
