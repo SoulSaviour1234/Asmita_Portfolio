@@ -145,15 +145,15 @@ export default function ContributionGraph() {
                         Pulsing and shaping code across repositories
                     </p>
                 </div>
-                <div className="flex items-center gap-2 text-pink-100 select-none">
+                <div className="flex items-center gap-2 text-sakura-ink select-none">
                     <span className="text-xl font-bold">
                         {isLoading ? (
-                            <span className="inline-block w-12 h-5 bg-white/20 animate-pulse rounded" />
+                            <span className="inline-block w-12 h-5 bg-sakura-ink/10 animate-pulse rounded" />
                         ) : (
                             data?.totalContributions || 0
                         )}
                     </span>
-                    <span className="text-[10px] uppercase tracking-wider font-semibold text-pink-200/80">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-sakura-inkSoft">
                         total contributions
                     </span>
                 </div>
