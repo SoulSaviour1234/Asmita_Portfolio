@@ -26,6 +26,14 @@ const TESTIMONIALS_DATA = [
         role: "Teammate",
         avatar: "/anisha.jpeg",
         linkedin: "https://www.linkedin.com/in/anisha-dan-293745383?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+    },
+    {
+        id: 'voice-4',
+        quote: "She can transform ideas into an intelligent system or a model",
+        name: "Barun Saha",
+        role: "Teammate",
+        avatar: "/barun.jpeg",
+        linkedin: "https://www.linkedin.com/in/barun-saha-132312380?utm_source=share_via&utm_content=profile&utm_medium=member_android"
     }
 ];
 
