@@ -89,9 +89,17 @@ const HeroImageCard = ({ mouse }) => {
         if (!materialRef.current) return;
         materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
         
-        const uvX = (mouse.current.x * 0.5) + 0.5;
-        const uvY = (mouse.current.y * 0.5) + 0.5;
-        materialRef.current.uniforms.uMouse.value.lerp(new THREE.Vector2(uvX, uvY), 0.1);
+        if (mouse.current.hasMoved) {
+            const uvX = (mouse.current.x * 0.5) + 0.5;
+            const uvY = (mouse.current.y * 0.5) + 0.5;
+            
+            if (materialRef.current.uniforms.uMouse.value.x > 5.0) {
+                // First interaction: snap instantly to avoid sweeping ripple across the screen
+                materialRef.current.uniforms.uMouse.value.set(uvX, uvY);
+            } else {
+                materialRef.current.uniforms.uMouse.value.lerp(new THREE.Vector2(uvX, uvY), 0.1);
+            }
+        }
     });
 
     return (
@@ -136,12 +144,13 @@ const Cluster = ({ mouse }) => {
    Mouse-tracker
    ============================================================ */
 const useMouseTracker = () => {
-    // Initialize far off-screen so the ripple doesn't start in the center (distorting the face)
-    const ref = useRef({ x: 10, y: 10 });
+    // Initialize at center for parallax, but track interaction to prevent default ripple
+    const ref = useRef({ x: 0, y: 0, hasMoved: false });
     const onMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
         ref.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         ref.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1); 
+        ref.current.hasMoved = true;
     };
     return { ref, onMove };
 };
