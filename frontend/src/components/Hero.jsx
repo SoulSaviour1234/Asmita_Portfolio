@@ -155,9 +155,10 @@ const Hero = () => {
                             />
                         </motion.button>
 
-                        <motion.button
-                            type="button"
-                            onClick={(e) => { e.preventDefault(); alert('My résumé is currently being polished and updated. Please check back soon!'); }}
+                        <motion.a
+                            href="/Asmita_Resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             data-testid="hero-cta-secondary"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.97 }}
@@ -170,7 +171,7 @@ const Hero = () => {
                         >
                             <Download size={17} aria-hidden="true" />
                             Download résumé
-                        </motion.button>
+                        </motion.a>
                     </motion.div>
 
                     {/* Stats strip */}
